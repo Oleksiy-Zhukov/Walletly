@@ -1,0 +1,200 @@
+.dashboard-container {
+    margin: 0 auto;
+    max-width: 90%;
+    text-align: center;
+/* padding: 1.5rem; */
+    padding: 20px 0;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #2D3E50;
+}
+
+#netWorthChart {
+    max-width: 100%;
+    height: 400px;
+}
+#dashboard {
+    width: 80%;
+    margin: 20px auto;
+}
+
+canvas {
+    display: block;
+    height: 400px;
+    max-width: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F7FA;
+    color: #2E2E2E;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2D3E50;
+    padding: 1rem 2rem;
+    color: white;
+}
+header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+header nav {
+    display: flex;
+    gap: 1.5rem;
+}
+header nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+}
+header .profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #5BC0EB;
+}
+.hero {
+    text-align: center;
+    margin: 2rem;
+}
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+.hero p {
+    font-size: 1.2rem;
+    color: #555;
+}
+.summary-cards {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem;
+}
+.card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    text-align: center;
+}
+.card h3 {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+}
+.quick-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem;
+}
+.action {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    background-color: #64C4A3;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+.action:hover {
+    background-color: #5AAE91;
+}
+.recent-transactions {
+    margin: 2rem auto;
+    max-width: 600px;
+}
+.recent-transactions h2 {
+    margin-bottom: 1rem;
+}
+.transaction {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem;
+    background: white;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+form input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+form button {
+    background-color: #5BC0EB;
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+form button:hover {
+    background-color: #4DA1D6;
+}
+
+.profile-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #5BC0EB;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 0.5rem 0;
+    width: 150px;
+    z-index: 1000;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #2E2E2E;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f2f2f2;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #2D3E50;
+    color: white;
+    font-size: 0.9rem;
+}

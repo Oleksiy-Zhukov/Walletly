@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}Walletly Dashboard{% endblock %}
+
+{% block content %}
+  <!-- Top cards with stats -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+    <!-- Current Balance -->
+    <div class="bg-white shadow rounded-2xl p-4 relative">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold">Current Balance</h3>
+        <a href="#" class="text-blue-500 hover:text-blue-700">
+          <img src="https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/currency-dollar.svg" class="w-5 h-5" alt="Asset icon" />
+        </a>
+      </div>
+      <p class="text-2xl font-bold mt-2">${{ total_balance|floatformat:0 }}</p>
+      <p class="text-sm text-gray-500 mt-1">Current balance</p>
+    </div>
+
+    <!-- Monthly Budget Left -->
+    <div class="bg-white shadow rounded-2xl p-4 relative">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold">Monthly Income</h3>
+        <a href="#" class="text-blue-500 hover:text-blue-700">
+          <img src="https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/chart-pie.svg" class="w-5 h-5" alt="Budget icon" />
+        </a>
+      </div>
+      <p class="text-2xl font-bold mt-2">${{ monthly_income|floatformat:0 }}</p>
+      <p class="text-sm text-green-600 mt-1">This month</p>
+    </div>
+
+    <!-- Income This Month -->
+    <div class="bg-white shadow rounded-2xl p-4 relative">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold">Monthly Expenses</h3>
+        <a href="#" class="text-blue-500 hover:text-blue-700">
+          <img src="https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/arrow-up-right.svg" class="w-5 h-5" alt="Income icon" />
+        </a>
+      </div>
+      <p class="text-2xl font-bold mt-2">${{ monthly_expenses|floatformat:0 }}</p>
+      <p class="text-sm text-red-600 mt-1">This month</p>
+    </div>
+
+    <!-- Expenses This Month -->
+    <div class="bg-white shadow rounded-2xl p-4 relative">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold">Net Income</h3>
+        <a href="#" class="text-blue-500 hover:text-blue-700">
+          <img src="https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/arrow-down-left.svg" class="w-5 h-5" alt="Expenses icon" />
+        </a>
+      </div>
+      <p class="text-2xl font-bold mt-2">${{ net_income|floatformat:0 }}</p>
+      <p class="text-sm {% if net_income >= 0 %}text-green-600{% else %}text-red-600{% endif %} mt-1">
+        {% if net_income >= 0 %}Positive{% else %}Negative{% endif %}
+      </p>
+    </div>
+  </div>
+
+  <!-- Large blocks for charts -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-white shadow rounded-2xl p-6">
+      <h2 class="text-xl font-semibold mb-4">Recent Transactions</h2>
+      <div class="h-64 flex items-center justify-center">
+        <canvas id="transactionChart"></canvas>
+      </div>
+    </div>
+
+    <div class="bg-white shadow rounded-2xl p-6">
+      <h2 class="text-xl font-semibold mb-4">Spending by Category</h2>
+      <div class="h-64 flex items-center justify-center">
+        <canvas id="categoryChart"></canvas>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Simple chart initialization
+document.addEventListener('DOMContentLoaded', function() {
+  // Transaction chart (simple example)
+  const transactionCtx = document.getElementById('transactionChart').getContext('2d');
+  new Chart(transactionCtx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [{
+        label: 'Monthly Balance',
+        data: [1000, 1500, 2000, 1800, 2200, 2500],
+        borderColor: '#6366f1',
+        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: function(value) {
+              return '$' + value.toLocaleString();
+            }
+          }
+        }
+      }
+    }
+  });
+
+  // Category chart (simple example)
+  const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+  new Chart(categoryCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Food', 'Transport', 'Entertainment', 'Bills', 'Shopping'],
+      datasets: [{
+        data: [300, 200, 150, 400, 250],
+        backgroundColor: [
+          '#6366f1',
+          '#10b981', 
+          '#f59e0b',
+          '#ef4444',
+          '#8b5cf6'
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }
+  });
+});
+</script>
+{% endblock %}

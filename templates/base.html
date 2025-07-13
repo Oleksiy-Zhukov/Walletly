@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Walletly{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
+        <div class="text-xl font-bold text-indigo-600">Walletly</div>
+        <nav class="flex items-center gap-6">
+            <a href="{% url 'dashboard' %}" class="text-gray-700 hover:text-indigo-600">Overview</a>
+            <a href="{% url 'transactions' %}" class="text-gray-700 hover:text-indigo-600">Transactions</a>
+            <a href="{% url 'budget' %}" class="text-gray-700 hover:text-indigo-600">Budget</a>
+            <a href="#" class="text-gray-700 hover:text-indigo-600">Goals</a>
+            <div class="relative">
+                <div class="w-10 h-10 bg-indigo-400 rounded-full cursor-pointer" onclick="toggleDropdown()"></div>
+                <div id="dropdown" class="absolute right-0 mt-2 w-40 bg-white border rounded shadow-md hidden">
+                    <a href="{% url 'logout' %}" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Messages display -->
+    {% if messages %}
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            {% for message in messages %}
+                <div class="mb-4 p-4 rounded {% if message.tags == 'error' %}bg-red-100 text-red-700{% elif message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-blue-100 text-blue-700{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Main content -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Base JavaScript for dropdown -->
+    <script>
+        // Fix the dropdown function
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('dropdown');
+            const profileButton = event.target.closest('.cursor-pointer');
+            
+            if (!profileButton && !dropdown.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

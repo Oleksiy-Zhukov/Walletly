@@ -173,3 +173,6 @@ cython_debug/
 
 # ignore backup templates
 old_templates/
+
+#other stuff
+.DS_Store
